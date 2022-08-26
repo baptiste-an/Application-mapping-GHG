@@ -176,11 +176,11 @@ app.layout = html.Div(
             aio_id="bruh",
             slider_props={
                 "min": 1995,
-                "max": 2003,  # 2019
+                "max": 2019,  # 2019
                 "step": 1,
                 "value": 1995,
                 "marks": {
-                    str(year): str(year) for year in range(1995, 2004, 1)
+                    str(year): str(year) for year in range(1995, 2020, 1)
                 },  # 2020
             },
             button_props={"className": "float-left"},

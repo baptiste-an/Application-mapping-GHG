@@ -14,11 +14,6 @@ import dash_bootstrap_components as dbc
 import pyarrow.feather as feather
 import pathlib
 
-app = Dash(__name__, title="Application")
-
-# Declare server for Heroku deployment. Needed for Procfile.
-server = app.server
-
 
 class PlaybackSliderAIO(html.Div):
     class ids:
@@ -105,7 +100,7 @@ class PlaybackSliderAIO(html.Div):
 app = Dash(
     __name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME]
 )
-server = app.server
+# server = app.server
 
 
 app.layout = html.Div(
@@ -593,7 +588,7 @@ def fig_sankey(year, region):
     return fig
 
 
-# app.run_server(debug=False)
+# # app.run_server(debug=False)
 
-if __name__ == "__main__":
-    app.run_server(debug=True)
+# if __name__ == "__main__":
+#     app.run_server(debug=True)

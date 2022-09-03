@@ -2,14 +2,12 @@
  # @ Create Time: 2022-08-23 15:40:55.513725
 """
 
-from dash import Dash, html, dcc
 import pandas as pd
 import plotly.graph_objs as go
-from dash import html, dcc, Output, Input, State, callback, MATCH
+from dash import Dash, html, dcc, Output, Input, State, callback, MATCH
+from dash_auth import BasicAuth
 from dash.exceptions import PreventUpdate
-import dash_bootstrap_components as dbc
 import uuid
-from dash import Dash, html, callback, Output, Input, dcc
 import dash_bootstrap_components as dbc
 import pyarrow.feather as feather
 import pathlib
@@ -97,11 +95,18 @@ class PlaybackSliderAIO(html.Div):
         return new_val
 
 
+VALID_USERNAME_PASSWORD_PAIRS = [
+    ['hello', 'world']
+]
 app = Dash(
     __name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME]
 )
 # server = app.server
 
+auth = BasicAuth(
+    app,
+    VALID_USERNAME_PASSWORD_PAIRS
+)
 
 app.layout = html.Div(
     [

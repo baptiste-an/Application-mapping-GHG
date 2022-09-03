@@ -588,7 +588,7 @@ def fig_sankey(year, region):
     return fig
 
 
-# # app.run_server(debug=False)
+# app.run_server(debug=False)
 
-# if __name__ == "__main__":
-#     app.run_server(debug=True)
+if __name__ == "__main__":
+    app.run_server(debug=True)

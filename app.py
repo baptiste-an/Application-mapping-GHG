@@ -95,18 +95,13 @@ class PlaybackSliderAIO(html.Div):
         return new_val
 
 
-VALID_USERNAME_PASSWORD_PAIRS = [
-    ['hello', 'world']
-]
+VALID_USERNAME_PASSWORD_PAIRS = [["hello", "world"]]
 app = Dash(
     __name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME]
 )
 # server = app.server
 
-auth = BasicAuth(
-    app,
-    VALID_USERNAME_PASSWORD_PAIRS
-)
+auth = BasicAuth(app, VALID_USERNAME_PASSWORD_PAIRS)
 
 app.layout = html.Div(
     [
@@ -200,6 +195,8 @@ app.layout = html.Div(
 def fig_sankey(year, region):
     path = pathlib.Path(__file__).parent
     DATA_PATH = path.joinpath("data").resolve()
+    norm = feather.read_feather("norm.feather")
+    ratio = norm.loc[region].loc[year]
 
     def node_y(nodes, node, white, color, region):
         if node == "CFC":
@@ -423,7 +420,7 @@ def fig_sankey(year, region):
             + (df.loc[:node][:-1].sum() + df.loc[node] / 2) / total * color
         )
 
-    def Nodes(region, year, height, top_margin, bottom_margin, pad):
+    def Nodes(region, year, height, top_margin, bottom_margin, pad, ratio):
 
         nodes = feather.read_feather(
             DATA_PATH.joinpath(
@@ -431,7 +428,7 @@ def fig_sankey(year, region):
             )
         )
 
-        ratio = 1
+        # ratio = 1
         size = height - top_margin - bottom_margin
         n = max(nodes.reset_index().set_index("position").index.value_counts())
         pad2 = (size - ratio * (size - (n + 1) * pad)) / (n + 1)
@@ -526,9 +523,7 @@ def fig_sankey(year, region):
     right_margin = 50
     pad = 10
 
-    ratio = norm.loc[region].loc[year]
-
-    nodes, pad2 = Nodes(region, year, height, top_margin, bottom_margin, pad)
+    nodes, pad2 = Nodes(region, year, height, top_margin, bottom_margin, pad, ratio)
     # node_dict, node_list, data_sankey = data_Sankey(year, region)
 
     link = dict(

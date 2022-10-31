@@ -38,9 +38,7 @@ class PlaybackSliderAIO(html.Div):
 
     ids = ids
 
-    def __init__(
-        self, button_props=None, slider_props=None, interval_props=None, aio_id=None
-    ):
+    def __init__(self, button_props=None, slider_props=None, interval_props=None, aio_id=None):
         if aio_id is None:
             aio_id = str(uuid.uuid4())
 
@@ -52,11 +50,7 @@ class PlaybackSliderAIO(html.Div):
 
         super().__init__(
             [
-                dbc.Button(
-                    html.I(id=self.ids.play_icon(aio_id)),
-                    id=self.ids.play(aio_id),
-                    **button_props
-                ),
+                dbc.Button(html.I(id=self.ids.play_icon(aio_id)), id=self.ids.play(aio_id), **button_props),
                 dcc.Slider(id=self.ids.slider(aio_id), **slider_props),
                 dcc.Interval(id=self.ids.interval(aio_id), **interval_props),
             ]
@@ -96,9 +90,7 @@ class PlaybackSliderAIO(html.Div):
 
 
 VALID_USERNAME_PASSWORD_PAIRS = [["hello", "world"]]
-app = Dash(
-    __name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME]
-)
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME])
 # server = app.server
 
 auth = BasicAuth(app, VALID_USERNAME_PASSWORD_PAIRS)
@@ -174,9 +166,7 @@ app.layout = html.Div(
                 "max": 2019,  # 2019
                 "step": 1,
                 "value": 1995,
-                "marks": {
-                    str(year): str(year) for year in range(1995, 2020, 1)
-                },  # 2020
+                "marks": {str(year): str(year) for year in range(1995, 2020, 1)},  # 2020
             },
             button_props={"className": "float-left"},
             interval_props={"interval": 2000},
@@ -306,20 +296,14 @@ def fig_sankey(year, region):
         if pos == "0. ges":
             df = df.reindex(["CO2", "CH4", "N2O", "SF6"])
         elif pos == "1. imp reg":
-            df = df.reindex(
-                pd.Index([region + " "]).union(
-                    df.index.sort_values().drop(region + " "), sort=False
-                )
-            )
+            df = df.reindex(pd.Index([region + " "]).union(df.index.sort_values().drop(region + " "), sort=False))
         elif pos == "2. imp dom":
             df = df.reindex(["Territorial", "Imports"])
         elif pos == "3. pba":
             df = df.reindex(
                 pd.Index(["Households direct emissions"])
                 .union(
-                    df.loc[df.index.str[:2] != "Ro"].index.drop(
-                        "Households direct emissions"
-                    ),
+                    df.loc[df.index.str[:2] != "Ro"].index.drop("Households direct emissions"),
                     sort=False,
                 )
                 .union(df.loc[df.index.str[:2] == "Ro"].index, sort=False)
@@ -423,9 +407,7 @@ def fig_sankey(year, region):
     def Nodes(region, year, height, top_margin, bottom_margin, pad, ratio):
 
         nodes = feather.read_feather(
-            DATA_PATH.joinpath(
-                "Sankeys/" + region + "/nodes" + region + str(year) + ".feather"
-            )
+            DATA_PATH.joinpath("Sankeys/" + region + "/nodes" + region + str(year) + ".feather")
         )
 
         # ratio = 1
@@ -505,14 +487,10 @@ def fig_sankey(year, region):
 
     norm = feather.read_feather(DATA_PATH.joinpath("norm.feather"))
     data_sankey = feather.read_feather(
-        DATA_PATH.joinpath(
-            "Sankeys/" + region + "/data" + region + str(year) + ".feather"
-        )
+        DATA_PATH.joinpath("Sankeys/" + region + "/data" + region + str(year) + ".feather")
     )
     node_list = feather.read_feather(
-        DATA_PATH.joinpath(
-            "Sankeys/" + region + "/nodelist" + region + str(year) + ".feather"
-        )
+        DATA_PATH.joinpath("Sankeys/" + region + "/nodelist" + region + str(year) + ".feather")
     )[0].values
 
     height = 450
@@ -530,9 +508,7 @@ def fig_sankey(year, region):
         source=data_sankey["source"],
         target=data_sankey["target"],
         value=data_sankey["value"],
-        label=list(
-            str(x) + " Mt CO2 eq" for x in data_sankey["value"].astype(float).round(1)
-        ),
+        label=list(str(x) + " Mt CO2 eq" for x in data_sankey["value"].astype(float).round(1)),
         color=data_sankey["color"],
         hovertemplate="",
     )
@@ -540,9 +516,7 @@ def fig_sankey(year, region):
     dictreg = dict(zip(df["region"], df["full name"]))
     node = {
         # "label": pd.DataFrame(node_list)[0],
-        "label": (pd.DataFrame(nodes, index=node_list))["label t/cap"]
-        .replace(dictreg)
-        .values,
+        "label": (pd.DataFrame(nodes, index=node_list))["label t/cap"].replace(dictreg).values,
         "pad": pad2,
         "thickness": 5,
         "color": "gray",

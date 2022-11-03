@@ -172,7 +172,14 @@ app.layout = html.Div(
             button_props={"className": "float-left"},
             interval_props={"interval": 2000},
         ),
-        # html.Div(id="text"),
+        # html.Div(id="text"),💌
+        html.Div(
+            html.P([
+                "Graciously hosted by ",
+                html.A("scalingo", href="https://scalingo.com")
+            ]), 
+            id="thanks",
+        ),
     ]
 )
 

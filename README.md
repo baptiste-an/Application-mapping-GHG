@@ -19,5 +19,11 @@ Install Scalingo [cli](https://doc.scalingo.com/platform/cli/start)
 
 ```console
 scalingo login
+# add remote to the project
+git remote add scalingo git@ssh.osc-fr1.scalingo.com:<app_name>.git
+# deployment from mail
+git push scalingo main
+# deployment from another branch
+git push scalingo <branch_name>:main
 
 ```

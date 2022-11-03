@@ -11,6 +11,7 @@ import uuid
 import dash_bootstrap_components as dbc
 import pyarrow.feather as feather
 import pathlib
+import os 
 
 
 class PlaybackSliderAIO(html.Div):
@@ -566,4 +567,5 @@ def fig_sankey(year, region):
 server = app.server
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    port=int(os.getenv("PORT", "8050"))
+    app.run_server(debug=True, port=port)

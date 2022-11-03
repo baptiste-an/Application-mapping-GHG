@@ -8,6 +8,7 @@ gunicorn = "*"
 pandas = "*"
 plotly = "*"
 pyarrow = "*"
+openpyxl = "*"
 
 [dev-packages]
 

@@ -235,7 +235,7 @@ def fig_sankey(year, region):
                     ]
                 ]
             )
-            df = df.drop("Exports").append(df2)
+            df = pd.concat([df.drop("Exports"), df2])
 
         if node in [
             "Africa",
@@ -266,7 +266,7 @@ def fig_sankey(year, region):
                     ]
                 ]
             )
-            df = df.append(df2)
+            df = pd.concat([df, df2])
             df3 = (
                 nodes.reset_index()
                 .set_index(["position", "index"])
@@ -458,25 +458,26 @@ def fig_sankey(year, region):
             y=lambda d: [node_y(nodes, i, white, color, region) for i in d.index],
         )
 
-        nodes["x"].loc["Exports"] = 0.65
+        nodes.loc["x", "Exports"] = 0.65
         try:
-            nodes["x"].loc["CFC imports re-exported"] = 0.65
+            nodes.loc["x", "CFC imports re-exported"] = 0.65
         except KeyError:
             None
 
         try:
-            nodes["x"].loc["RoW - Negative capital formation"] = 0.38
+            nodes.loc["x", "RoW - Negative capital formation"] = 0.38
         except KeyError:
             None
 
         try:
-            nodes["x"].loc["Negative capital formation"] = 0.38
+            nodes.loc["x", "Negative capital formation"] = 0.38
         except KeyError:
             None
         # nodes["x"].loc[["CFC","RoW - CFC"]] = 0.76
         # nodes["x"].loc[["CFCk","RoW - CFCk"]] = 0.76
 
-        nodes["x"].loc[
+        nodes.loc[
+            "x",
             [
                 "RoW - Mobility",
                 "RoW - Shelter",
@@ -486,7 +487,7 @@ def fig_sankey(year, region):
                 "RoW - Health",
                 "RoW - Other goods and services",
                 "RoW - Net capital formation ",
-            ]
+            ],
         ] = 0.77
         return nodes, pad2
 
@@ -573,8 +574,3 @@ server = app.server
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "8050"))
     app.run_server(debug=True, host="0.0.0.0", port=port)
-
-
-# to test locally:
-# if __name__ == "__main__":
-#     app.run_server(debug=True)

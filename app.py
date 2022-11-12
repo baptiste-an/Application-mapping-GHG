@@ -13,7 +13,7 @@ import pyarrow.feather as feather
 import pathlib
 import os 
 import json
-
+from flask_caching import Cache
 
 class PlaybackSliderAIO(html.Div):
     class ids:
@@ -95,6 +95,11 @@ class PlaybackSliderAIO(html.Div):
 VALID_USERNAME_PASSWORD_PAIRS = [["hello", "world"]]
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME])
 
+cache = Cache(app.server, config={
+    'CACHE_TYPE': 'FileSystemCache',
+    'CACHE_DIR': 'cache'
+})
+
 auth = BasicAuth(app, VALID_USERNAME_PASSWORD_PAIRS)
 
 DATA_PATH = pathlib.Path(__file__).parent.joinpath("data").resolve()
@@ -150,7 +155,7 @@ app.layout = html.Div(
     Input(PlaybackSliderAIO.ids.slider("bruh"), "value"),
     Input("slct", "value"),
 )
-
+@cache.memoize()
 def fig_sankey(year, region):
     norm = feather.read_feather("norm.feather")
     ratio = norm.loc[region].loc[year]

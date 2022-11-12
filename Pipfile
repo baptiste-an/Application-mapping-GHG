@@ -9,6 +9,7 @@ pandas = "*"
 plotly = "*"
 pyarrow = "*"
 openpyxl = "*"
+flask-caching = "*"
 
 [dev-packages]
 

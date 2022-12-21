@@ -190,7 +190,7 @@ app.layout = html.Div(
 def fig_sankey(year, region):
     path = pathlib.Path(__file__).parent
     DATA_PATH = path.joinpath("data").resolve()
-    norm = feather.read_feather("norm.feather")
+    norm = feather.read_feather(DATA_PATH.joinpath("norm.feather"))
     ratio = norm.loc[region].loc[year]
 
     def node_y(nodes, node, white, color, region):
@@ -487,7 +487,6 @@ def fig_sankey(year, region):
         ] = 0.77
         return nodes, pad2
 
-    norm = feather.read_feather(DATA_PATH.joinpath("norm.feather"))
     data_sankey = feather.read_feather(
         DATA_PATH.joinpath("Sankeys/" + region + "/data" + region + str(year) + ".feather")
     )

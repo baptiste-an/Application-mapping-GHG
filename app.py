@@ -11,8 +11,9 @@ import uuid
 import dash_bootstrap_components as dbc
 import pyarrow.feather as feather
 import pathlib
-import os
-
+import os 
+import json
+from flask_caching import Cache
 
 class PlaybackSliderAIO(html.Div):
     class ids:
@@ -64,6 +65,7 @@ class PlaybackSliderAIO(html.Div):
         Input(ids.play(MATCH), "n_clicks"),
         State(ids.play(MATCH), "active"),
     )
+
     def toggle_play(clicks, curr_status):
         if clicks:
             text = "fa-solid fa-play" if curr_status else "fa-solid fa-pause"
@@ -92,10 +94,23 @@ class PlaybackSliderAIO(html.Div):
 
 VALID_USERNAME_PASSWORD_PAIRS = [["hello", "world"]]
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME])
-# server = app.server
+
+cache = Cache(app.server, config={
+    'CACHE_TYPE': 'FileSystemCache',
+    'CACHE_DIR': 'cache'
+})
 
 auth = BasicAuth(app, VALID_USERNAME_PASSWORD_PAIRS)
 
+DATA_PATH = pathlib.Path(__file__).parent.joinpath("data").resolve()
+
+REGIONS={}
+
+with open(f"{DATA_PATH}/regions.json") as f:
+    REGIONS = json.loads(f.read())
+
+LABELS=[ { 'label': v, 'value': k } for k, v in REGIONS.items() ]
+ 
 app.layout = html.Div(
     [
         # html.H4(""),
@@ -103,62 +118,12 @@ app.layout = html.Div(
         dcc.Dropdown(
             id="slct",
             # options=[dict(zip(df['region'],df['full name']))],
-            options=[
-                {"label": "Australia", "value": "AU"},
-                {"label": "Austria", "value": "AT"},
-                {"label": "Belgium", "value": "BE"},
-                {"label": "Brazil", "value": "BR"},
-                {"label": "Bulgaria", "value": "BG"},
-                {"label": "Canada", "value": "CA"},
-                {"label": "China", "value": "CN"},
-                {"label": "Croatia", "value": "HR"},
-                {"label": "Cyprus", "value": "CY"},
-                {"label": "Czech Republic", "value": "CZ"},
-                {"label": "Denmark", "value": "DK"},
-                {"label": "Estonia", "value": "EE"},
-                {"label": "Finland", "value": "FI"},
-                {"label": "France", "value": "FR"},
-                {"label": "Germany", "value": "DE"},
-                {"label": "Great Britain", "value": "GB"},
-                {"label": "Greece", "value": "GR"},
-                {"label": "Hungary", "value": "HU"},
-                {"label": "India", "value": "IN"},
-                {"label": "Indonesia", "value": "ID"},
-                {"label": "Ireland", "value": "IE"},
-                {"label": "Italy", "value": "IT"},
-                {"label": "Japan", "value": "JP"},
-                {"label": "Latvia", "value": "LV"},
-                {"label": "Lithuania", "value": "LT"},
-                {"label": "Luxembourg", "value": "LU"},
-                {"label": "Malta", "value": "MT"},
-                {"label": "Mexico", "value": "MX"},
-                {"label": "Netherlands", "value": "NL"},
-                {"label": "Norway", "value": "NO"},
-                {"label": "Poland", "value": "PL"},
-                {"label": "Portugal", "value": "PT"},
-                {"label": "Romania", "value": "RO"},
-                {"label": "Russia", "value": "RU"},
-                {"label": "Slovakia", "value": "SK"},
-                {"label": "Slovenia", "value": "SI"},
-                {"label": "South Africa", "value": "ZA"},
-                {"label": "South Korea", "value": "KR"},
-                {"label": "Spain", "value": "ES"},
-                {"label": "Sweden", "value": "SE"},
-                {"label": "Switzerland", "value": "CH"},
-                {"label": "Taiwan", "value": "TW"},
-                {"label": "Turkey", "value": "TR"},
-                {"label": "United States", "value": "US"},
-                {"label": "RoW Africa", "value": "WF"},
-                {"label": "RoW America", "value": "WL"},
-                {"label": "RoW Asia and Pacific", "value": "WA"},
-                {"label": "RoW Europe", "value": "WE"},
-                {"label": "RoW Middle East", "value": "WM"},
-            ],
+            options=LABELS,
             multi=False,
             value="CN",
             style={"width": "40%"},
         ),
-        dcc.Graph(id="graph"),
+        dcc.Graph(id="graph", responsive=False),
         # html.P("year"),
         PlaybackSliderAIO(
             aio_id="bruh",
@@ -172,9 +137,12 @@ app.layout = html.Div(
             button_props={"className": "float-left"},
             interval_props={"interval": 2000},
         ),
-        # html.Div(id="text"),💌
         html.Div(
-            html.P(["HelloWorld, Graciously hosted by ", html.A("scalingo", href="https://scalingo.com")]),
+            html.P([
+                "Graciously hosted by ",
+                html.A("scalingo", href="https://scalingo.com"),
+                " in 🇫🇷"
+            ]), 
             id="thanks",
         ),
     ]
@@ -187,10 +155,13 @@ app.layout = html.Div(
     Input(PlaybackSliderAIO.ids.slider("bruh"), "value"),
     Input("slct", "value"),
 )
+@cache.memoize()
 def fig_sankey(year, region):
+
     path = pathlib.Path(__file__).parent
     DATA_PATH = path.joinpath("data").resolve()
     norm = feather.read_feather(DATA_PATH.joinpath("norm.feather"))
+
     ratio = norm.loc[region].loc[year]
 
     def node_y(nodes, node, white, color, region):
@@ -513,11 +484,12 @@ def fig_sankey(year, region):
         color=data_sankey["color"],
         hovertemplate="",
     )
-    df = pd.read_excel(DATA_PATH.joinpath("regions.xlsx"))
-    dictreg = dict(zip(df["region"], df["full name"]))
+
     node = {
         # "label": pd.DataFrame(node_list)[0],
-        "label": (pd.DataFrame(nodes, index=node_list))["label Mt"].replace(dictreg).values,
+
+        "label": (pd.DataFrame(nodes, index=node_list))["label t/cap"].replace(REGIONS).values,
+
         "pad": pad2,
         "thickness": 5,
         "color": "gray",
@@ -536,7 +508,7 @@ def fig_sankey(year, region):
     fig = go.Figure(sankey)
     fig.update_layout(
         hovermode="y",
-        title="Greenhouse gas footprint of " + str(year) + " (Mt CO2eq)",
+        title=f"Greenhouse gas footprint of {REGIONS[region]} for {year} (Mt CO2eq)",
         font=dict(size=8, color="black"),
         paper_bgcolor="white",
     )

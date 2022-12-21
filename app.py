@@ -410,12 +410,8 @@ def fig_sankey(year, region):
         )
 
     def Nodes(region, year, height, top_margin, bottom_margin, pad, ratio):
+        nodes = feather.read_feather("Sankeys/" + region + "/nodes" + region + str(year) + ".feather")
 
-        nodes = feather.read_feather(
-            DATA_PATH.joinpath("Sankeys/" + region + "/nodes" + region + str(year) + ".feather")
-        )
-
-        # ratio = 1
         size = height - top_margin - bottom_margin
         n = max(nodes.reset_index().set_index("position").index.value_counts())
         pad2 = (size - ratio * (size - (n + 1) * pad)) / (n + 1)
@@ -441,14 +437,14 @@ def fig_sankey(year, region):
                         (
                             [
                                 0.001,
-                                0.05,
-                                0.14,
-                                0.21,
-                                0.33,
-                                0.47,
-                                0.58,
-                                0.7,
-                                0.9,
+                                0.08,  # 8
+                                0.18,  # 10
+                                0.27,  # 9
+                                0.41,  # 13
+                                0.50,  # 9
+                                0.58,  # 8
+                                0.7,  # 12
+                                0.9,  # 10
                                 0.999,
                             ]
                         ),
@@ -458,26 +454,26 @@ def fig_sankey(year, region):
             y=lambda d: [node_y(nodes, i, white, color, region) for i in d.index],
         )
 
-        nodes.loc["x", "Exports"] = 0.65
+        nodes["x"].loc["Exports"] = 0.65
+        if "CFC imports re-exported" in nodes.index:
+            try:
+                nodes["x"].loc["CFC imports re-exported"] = 0.65
+            except KeyError:
+                None
+
         try:
-            nodes.loc["x", "CFC imports re-exported"] = 0.65
+            nodes["x"].loc["RoW - Negative capital formation"] = 0.45
         except KeyError:
             None
 
         try:
-            nodes.loc["x", "RoW - Negative capital formation"] = 0.38
-        except KeyError:
-            None
-
-        try:
-            nodes.loc["x", "Negative capital formation"] = 0.38
+            nodes["x"].loc["Negative capital formation"] = 0.45
         except KeyError:
             None
         # nodes["x"].loc[["CFC","RoW - CFC"]] = 0.76
         # nodes["x"].loc[["CFCk","RoW - CFCk"]] = 0.76
 
-        nodes.loc[
-            "x",
+        nodes["x"].loc[
             [
                 "RoW - Mobility",
                 "RoW - Shelter",
@@ -487,7 +483,7 @@ def fig_sankey(year, region):
                 "RoW - Health",
                 "RoW - Other goods and services",
                 "RoW - Net capital formation ",
-            ],
+            ]
         ] = 0.77
         return nodes, pad2
 
@@ -522,7 +518,7 @@ def fig_sankey(year, region):
     dictreg = dict(zip(df["region"], df["full name"]))
     node = {
         # "label": pd.DataFrame(node_list)[0],
-        "label": (pd.DataFrame(nodes, index=node_list))["label t/cap"].replace(dictreg).values,
+        "label": (pd.DataFrame(nodes, index=node_list))["label Mt"].replace(dictreg).values,
         "pad": pad2,
         "thickness": 5,
         "color": "gray",
@@ -568,9 +564,9 @@ def fig_sankey(year, region):
     return fig
 
 
-# app.run_server(debug=False)
-server = app.server
+app.run_server(debug=False)
+# server = app.server
 
-if __name__ == "__main__":
-    port = int(os.getenv("PORT", "8050"))
-    app.run_server(debug=True, host="0.0.0.0", port=port)
+# if __name__ == "__main__":
+#     port = int(os.getenv("PORT", "8050"))
+#     app.run_server(debug=True, host="0.0.0.0", port=port)

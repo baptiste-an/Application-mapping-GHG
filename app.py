@@ -11,9 +11,10 @@ import uuid
 import dash_bootstrap_components as dbc
 import pyarrow.feather as feather
 import pathlib
-import os 
+import os
 import json
 from flask_caching import Cache
+
 
 class PlaybackSliderAIO(html.Div):
     class ids:
@@ -65,7 +66,6 @@ class PlaybackSliderAIO(html.Div):
         Input(ids.play(MATCH), "n_clicks"),
         State(ids.play(MATCH), "active"),
     )
-
     def toggle_play(clicks, curr_status):
         if clicks:
             text = "fa-solid fa-play" if curr_status else "fa-solid fa-pause"
@@ -95,22 +95,19 @@ class PlaybackSliderAIO(html.Div):
 VALID_USERNAME_PASSWORD_PAIRS = [["hello", "world"]]
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME])
 
-cache = Cache(app.server, config={
-    'CACHE_TYPE': 'FileSystemCache',
-    'CACHE_DIR': 'cache'
-})
+cache = Cache(app.server, config={"CACHE_TYPE": "FileSystemCache", "CACHE_DIR": "cache"})
 
 auth = BasicAuth(app, VALID_USERNAME_PASSWORD_PAIRS)
 
 DATA_PATH = pathlib.Path(__file__).parent.joinpath("data").resolve()
 
-REGIONS={}
+REGIONS = {}
 
 with open(f"{DATA_PATH}/regions.json") as f:
     REGIONS = json.loads(f.read())
 
-LABELS=[ { 'label': v, 'value': k } for k, v in REGIONS.items() ]
- 
+LABELS = [{"label": v, "value": k} for k, v in REGIONS.items()]
+
 app.layout = html.Div(
     [
         # html.H4(""),
@@ -138,11 +135,7 @@ app.layout = html.Div(
             interval_props={"interval": 2000},
         ),
         html.Div(
-            html.P([
-                "Graciously hosted by ",
-                html.A("scalingo", href="https://scalingo.com"),
-                " in 🇫🇷"
-            ]), 
+            html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com"), " in 🇫🇷"]),
             id="thanks",
         ),
     ]
@@ -158,8 +151,6 @@ app.layout = html.Div(
 @cache.memoize()
 def fig_sankey(year, region):
 
-    path = pathlib.Path(__file__).parent
-    DATA_PATH = path.joinpath("data").resolve()
     norm = feather.read_feather(DATA_PATH.joinpath("norm.feather"))
 
     ratio = norm.loc[region].loc[year]
@@ -381,7 +372,9 @@ def fig_sankey(year, region):
         )
 
     def Nodes(region, year, height, top_margin, bottom_margin, pad, ratio):
-        nodes = feather.read_feather("Sankeys/" + region + "/nodes" + region + str(year) + ".feather")
+        nodes = feather.read_feather(
+            DATA_PATH.joinpath("Sankeys/" + region + "/nodes" + region + str(year) + ".feather")
+        )
 
         size = height - top_margin - bottom_margin
         n = max(nodes.reset_index().set_index("position").index.value_counts())
@@ -487,9 +480,7 @@ def fig_sankey(year, region):
 
     node = {
         # "label": pd.DataFrame(node_list)[0],
-
         "label": (pd.DataFrame(nodes, index=node_list))["label t/cap"].replace(REGIONS).values,
-
         "pad": pad2,
         "thickness": 5,
         "color": "gray",

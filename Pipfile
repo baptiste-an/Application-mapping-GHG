@@ -11,6 +11,8 @@ pyarrow = "*"
 openpyxl = "*"
 flask-caching = "*"
 dash = "*"
+dash-auth = "*"
+dash-bootstrap-components = "*"
 
 [dev-packages]
 

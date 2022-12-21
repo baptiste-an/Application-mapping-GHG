@@ -2,6 +2,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 from dash_auth import BasicAuth
+import os
 
 # Connect to main app.py file
 from app import app
@@ -38,5 +39,11 @@ def display_page(pathname):
         return "404 Page Error! Please choose a link"
 
 
+# for deployment:
 if __name__ == "__main__":
-    app.run_server(debug=False)
+    port = int(os.getenv("PORT", "8050"))
+    app.run_server(debug=True, host="0.0.0.0", port=port)
+
+# to test locally
+# if __name__ == "__main__":
+#     app.run_server(debug=False)

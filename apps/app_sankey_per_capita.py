@@ -35,38 +35,55 @@ with open(f"{DATA_PATH}/regions.json") as f:
 
 LABELS = [{"label": v, "value": k} for k, v in REGIONS.items()]
 
-layout = html.Div(
-    [
-        # html.H4(""),
-        # html.P("region"),
-        dcc.Dropdown(
-            id="slct2",
-            # options=[dict(zip(df['region'],df['full name']))],
-            options=LABELS,
-            multi=False,
-            value="CN",
-            style={"width": "40%"},
-        ),
-        dcc.Graph(id="graph2", responsive=False),
-        # html.P("year"),
-        PlaybackSliderAIO(
-            aio_id="bruh2",
-            slider_props={
-                "min": 1995,
-                "max": 2019,  # 2019
-                "step": 1,
-                "value": 1995,
-                "marks": {str(year): str(year) for year in range(1995, 2020, 1)},  # 2020
-            },
-            button_props={"className": "float-left"},
-            interval_props={"interval": 2000},
-        ),
-        html.Div(
-            html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com"), " in 🇫🇷"]),
-            id="thanks",
-        ),
-    ]
+
+dropdown = dcc.Dropdown(
+    id="slct2",
+    options=LABELS,
+    multi=False,
+    value="FR",
 )
+graph = dcc.Graph(
+    id="graph2",
+    responsive=True,
+)
+slider = PlaybackSliderAIO(
+    aio_id="bruh2",
+    slider_props={
+        "min": 1995,
+        "max": 2019,  # 2019
+        "step": 1,
+        "value": 1995,
+        "marks": {str(year): str(year) for year in range(1995, 2020, 1)},
+    },
+    button_props={"className": "float-left"},
+    # interval_props={"interval": 2000},
+)
+thanks = html.Div(
+    html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com"), " in 🇫🇷"]),
+    id="thanks",
+)
+
+
+layout = dbc.Container(
+    [
+        # dbc.Row([dbc.Col([dropdown], width=12)]),
+        dbc.Row([dbc.Col([dropdown], width=12)], justify="center"),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [graph],
+                    style={"height": 450},
+                )
+            ]
+        ),
+        html.Div(" "),
+        dbc.Row([dbc.Col([slider])], justify="center"),
+        # dbc.Row([dbc.Col([html.Div("test", id="text")], width=6)], justify="center"),
+        # dbc.Row([dbc.Col([thanks], width=2)], justify="center"),
+    ],
+    fluid=True,
+)
+
 
 color_dict = dict(
     {

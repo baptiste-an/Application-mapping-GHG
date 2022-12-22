@@ -3,6 +3,7 @@ from dash import html
 from dash.dependencies import Input, Output
 from dash_auth import BasicAuth
 import os
+import dash_bootstrap_components as dbc
 
 # Connect to main app.py file
 from app import app
@@ -14,12 +15,28 @@ from apps import app_sankey, app_sankey_per_capita
 VALID_USERNAME_PASSWORD_PAIRS = [["hello", "world"]]
 auth = BasicAuth(app, VALID_USERNAME_PASSWORD_PAIRS)
 
+
+# app.layout = html.Div(
+#     [
+#         html.Div(
+#             [
+#                 dbc.Row([dbc.Col([dcc.Link("Sankey | ", href="/apps/app_sankey")], width=3)]),
+#                 dbc.Row([dbc.Col([dcc.Link("Sankey per capita", href="/apps/app_sankey_per_capita")], width=3)]),
+#                 dbc.Row([dbc.Col([html.Div("test", id="text")], width=3)]),
+#             ]
+#         ),
+#         dcc.Location(id="url", refresh=False),
+#         html.Div(id="page-content", children=[]),
+#     ]
+# )
+
+
 app.layout = html.Div(
     [
         dcc.Location(id="url", refresh=False),
         html.Div(
             [
-                dcc.Link("Sankey | ", href="/apps/app_sankey"),
+                dcc.Link("Sankey  ", href="/apps/app_sankey"),
                 dcc.Link("Sankey per capita", href="/apps/app_sankey_per_capita"),
             ],
             className="row",
@@ -36,7 +53,7 @@ def display_page(pathname):
     if pathname == "/apps/app_sankey_per_capita":
         return app_sankey_per_capita.layout
     else:
-        return "404 Page Error! Please choose a link"
+        return "Please choose a link"
 
 
 # for deployment:

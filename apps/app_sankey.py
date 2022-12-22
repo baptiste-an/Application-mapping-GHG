@@ -16,14 +16,6 @@ from flask_caching import Cache
 from app import app
 from slider import PlaybackSliderAIO
 
-
-# VALID_USERNAME_PASSWORD_PAIRS = [["hello", "world"]]
-# app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME])
-# # server = app.server
-
-# auth = BasicAuth(app, VALID_USERNAME_PASSWORD_PAIRS)
-
-
 cache = Cache(app.server, config={"CACHE_TYPE": "FileSystemCache", "CACHE_DIR": "cache"})
 
 DATA_PATH = pathlib.Path(__file__).parent.joinpath("data").resolve()
@@ -35,38 +27,58 @@ with open(f"{DATA_PATH}/regions.json") as f:
 
 LABELS = [{"label": v, "value": k} for k, v in REGIONS.items()]
 
-layout = html.Div(
-    [
-        # html.H4(""),
-        # html.P("region"),
-        dcc.Dropdown(
-            id="slct",
-            # options=[dict(zip(df['region'],df['full name']))],
-            options=LABELS,
-            multi=False,
-            value="CN",
-            style={"width": "40%"},
-        ),
-        dcc.Graph(id="graph", responsive=False),
-        # html.P("year"),
-        PlaybackSliderAIO(
-            aio_id="bruh",
-            slider_props={
-                "min": 1995,
-                "max": 2019,  # 2019
-                "step": 1,
-                "value": 1995,
-                "marks": {str(year): str(year) for year in range(1995, 2020, 1)},  # 2020
-            },
-            button_props={"className": "float-left"},
-            interval_props={"interval": 2000},
-        ),
-        html.Div(
-            html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com"), " in 🇫🇷"]),
-            id="thanks",
-        ),
-    ]
+
+dropdown = dcc.Dropdown(
+    id="slct",
+    options=LABELS,
+    multi=False,
+    value="FR",
 )
+graph = dcc.Graph(
+    id="graph",
+    responsive=True,
+)
+slider = PlaybackSliderAIO(
+    aio_id="bruh",
+    slider_props={
+        "min": 1995,
+        "max": 2019,  # 2019
+        "step": 1,
+        "value": 1995,
+        "marks": {str(year): str(year) for year in range(1995, 2020, 1)},
+    },
+    button_props={"className": "float-left"},
+    # interval_props={"interval": 2000},
+)
+thanks = html.Div(
+    html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com"), " in 🇫🇷"]),
+    id="thanks",
+)
+
+
+layout = dbc.Container(
+    [
+        # dbc.Row([dbc.Col([dropdown], width=12)]),
+        dbc.Row([dbc.Col([dropdown], width=12)], justify="center"),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [graph],
+                    style={"height": 450},
+                )
+            ]
+        ),
+        html.Div(" "),
+        dbc.Row([dbc.Col([slider])], justify="center"),
+        # dbc.Row([dbc.Col([html.Div("test", id="text")], width=6)], justify="center"),
+        # dbc.Row([dbc.Col([thanks], width=2)], justify="center"),
+    ],
+    fluid=True,
+)
+
+
+# layout = html.Div([dropdown, graph, slider])
+
 
 color_dict = dict(
     {
@@ -83,7 +95,6 @@ color_dict = dict(
 
 @app.callback(
     Output("graph", "figure"),
-    # Output("text", "children"),
     Input(PlaybackSliderAIO.ids.slider("bruh"), "value"),
     Input("slct", "value"),
 )
@@ -397,16 +408,15 @@ def fig_sankey(year, region):
         DATA_PATH.joinpath("Sankeys/" + region + "/nodelist" + region + str(year) + ".feather")
     )[0].values
 
-    height = 450
+    height = 460
     width = 1100
     top_margin = 50
-    bottom_margin = 0
+    bottom_margin = 10
     left_margin = 50
     right_margin = 50
     pad = 10
 
     nodes, pad2 = Nodes(region, year, height, top_margin, bottom_margin, pad, ratio)
-    # node_dict, node_list, data_sankey = data_Sankey(year, region)
 
     link = dict(
         source=data_sankey["source"],
@@ -418,12 +428,9 @@ def fig_sankey(year, region):
     )
 
     node = {
-        # "label": pd.DataFrame(node_list)[0],
         "label": (pd.DataFrame(nodes, index=node_list))["label Mt"].replace(REGIONS).values,
         "pad": pad2,
         "thickness": 2,
-        # "line" : dict(color = "black", width = 0.5),
-        # "color": "white",  #00005A,#00008E, #0028dc
         "color": "#00005A",  # ,#00008E, #0028dc
         "x": nodes["x"].values,
         "y": nodes["y"].values,
@@ -458,18 +465,4 @@ def fig_sankey(year, region):
         margin=dict(l=left_margin, r=right_margin, t=top_margin, b=bottom_margin),
     )
 
-    # fig.update_traces(textfont_size=7)
-    # fig.write_image(
-    #     "Sankeys/" + region + "/fig2" + region + str(year) + ".pdf", engine="orca"
-    # )
-    # # fig.write_image("SankeyFR" + str(year) + ".svg", engine="orca")
-
     return fig
-
-
-# app.run_server(debug=False)
-# server = app.server
-
-# if __name__ == "__main__":
-#     port = int(os.getenv("PORT", "8050"))
-#     app.run_server(debug=True, host="0.0.0.0", port=port)

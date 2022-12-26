@@ -34,9 +34,11 @@ dropdown = dcc.Dropdown(
     multi=False,
     value="FR",
 )
-graph = dcc.Graph(
-    id="graph",
-    # responsive=True,
+graph = html.Div(
+    dcc.Graph(
+        id="graph",
+        responsive=True,
+    )
 )
 slider = PlaybackSliderAIO(
     aio_id="bruh",
@@ -50,6 +52,8 @@ slider = PlaybackSliderAIO(
     button_props={"className": "float-left"},
     interval_props={"interval": 2000},
 )
+
+# slider = dcc.Slider(1995, 2019, 1, value=1995, id="bruh")
 thanks = html.Div(
     html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com"), " in 🇫🇷"]),
     id="thanks",
@@ -69,17 +73,18 @@ layout = dbc.Container(
             [
                 dbc.Col(
                     [graph],
+                    width=12,
                     style={"height": 450},
                 )
             ]
         ),
         html.Div(" "),
-        dbc.Row([dbc.Col([slider])], justify="center"),
+        slider,
         citation,
         # dbc.Row([dbc.Col([html.Div("test", id="text")], width=6)], justify="center"),
         # dbc.Row([dbc.Col([thanks], width=2)], justify="center"),
     ],
-    fluid=True,
+    fluid=True,  # no change in width otherwise
 )
 
 
@@ -102,6 +107,7 @@ color_dict = dict(
 @app.callback(
     Output("graph", "figure"),
     Input(PlaybackSliderAIO.ids.slider("bruh"), "value"),
+    # Input("bruh", "value"),
     Input("slct", "value"),
 )
 @cache.memoize()

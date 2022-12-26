@@ -44,7 +44,7 @@ dropdown = dcc.Dropdown(
 )
 graph = dcc.Graph(
     id="graph2",
-    # responsive=True,
+    responsive=True,
 )
 slider = PlaybackSliderAIO(
     aio_id="bruh2",
@@ -76,6 +76,7 @@ layout = dbc.Container(
             [
                 dbc.Col(
                     [graph],
+                    width=12,
                     style={"height": 450},
                 )
             ]
@@ -408,12 +409,12 @@ def fig_sankey_cap(year, region):
         DATA_PATH.joinpath("Sankeys/" + region + "/nodelist" + region + str(year) + ".feather")
     )[0].values
 
-    height = 450
+    height = 480
     width = 1100
-    top_margin = 50
-    bottom_margin = 0
-    left_margin = 50
-    right_margin = 50
+    top_margin = 30
+    bottom_margin = 10
+    left_margin = 10
+    right_margin = 10
     pad = 10
 
     nodes, pad2 = Nodes(region, year, height, top_margin, bottom_margin, pad, ratio)

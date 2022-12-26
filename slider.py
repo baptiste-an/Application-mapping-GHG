@@ -24,39 +24,55 @@ class PlaybackSliderAIO(html.Div):
 
         button_props["active"] = False
 
+        # super().__init__(
+        #     [
+        #         dbc.Container(
+        #             [
+        #                 dbc.Row(
+        #                     [
+        #                         dbc.Col(
+        #                             html.Div(
+        #                                 [
+        #                                     " ",
+        #                                     dbc.Button(
+        #                                         html.I(id=self.ids.play_icon(aio_id)),
+        #                                         id=self.ids.play(aio_id),
+        #                                         **button_props
+        #                                     ),
+        #                                 ],
+        #                             ),
+        #                             width=1,
+        #                         ),
+        #                         dbc.Col(
+        #                             html.Div(
+        #                                 [
+        #                                     "Select year or press play",
+        #                                     dcc.Slider(id=self.ids.slider(aio_id), **slider_props),
+        #                                     dcc.Interval(id=self.ids.interval(aio_id), **interval_props),
+        #                                 ],
+        #                             ),
+        #                             width=11,
+        #                         ),
+        #                     ],
+        #                 ),
+        #             ]
+        #         ),
+        #     ]
+        # )
+
         super().__init__(
             [
-                dbc.Container(
+                dbc.Row(
                     [
-                        dbc.Row(
-                            [
-                                dbc.Col(
-                                    html.Div(
-                                        [
-                                            " ",
-                                            dbc.Button(
-                                                html.I(id=self.ids.play_icon(aio_id)),
-                                                id=self.ids.play(aio_id),
-                                                **button_props
-                                            ),
-                                        ],
-                                    ),
-                                    width=1,
-                                ),
-                                dbc.Col(
-                                    html.Div(
-                                        [
-                                            "Select year or press play",
-                                            dcc.Slider(id=self.ids.slider(aio_id), **slider_props),
-                                            dcc.Interval(id=self.ids.interval(aio_id), **interval_props),
-                                        ],
-                                    ),
-                                    width=11,
-                                ),
-                            ],
+                        dbc.Col(
+                            dbc.Button(html.I(id=self.ids.play_icon(aio_id)), id=self.ids.play(aio_id), **button_props),
+                            width=1,
                         ),
+                        dbc.Col(html.Div("Select year or press play")),
                     ]
                 ),
+                dcc.Slider(id=self.ids.slider(aio_id), **slider_props),
+                dcc.Interval(id=self.ids.interval(aio_id), **interval_props),
             ]
         )
 

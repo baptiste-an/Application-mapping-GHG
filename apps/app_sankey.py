@@ -380,24 +380,22 @@ def fig_sankey(year, region):
             y=lambda d: [node_y(nodes, i, white, color, region) for i in d.index],
         )
 
-        # nodes["x"].loc["Exports"] = 0.67
-        if "CFC imports re-exported" in nodes.index:
-            try:
-                nodes["x", "CFC imports re-exported"] = 0.68
-            except KeyError:
-                None
-
         try:
-            nodes["x", "RoW - Negative capital formation"] = 0.48
+            nodes.loc["CFC imports re-exported", "x"] = 0.68
         except KeyError:
             None
 
         try:
-            nodes["x", "Negative capital formation"] = 0.48
+            nodes.loc["RoW - Negative capital formation", "x"] = 0.44
         except KeyError:
             None
 
-        nodes["x", "Footprint"] = 1
+        try:
+            nodes.loc["Negative capital formation", "x"] = 0.44
+        except KeyError:
+            None
+
+        nodes.loc["Footprint", "x"] = 1
 
         return nodes, pad2
 

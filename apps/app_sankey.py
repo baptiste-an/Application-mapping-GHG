@@ -50,7 +50,7 @@ slider = PlaybackSliderAIO(
         "marks": {str(year): str(year) for year in range(1995, 2020, 1)},
     },
     button_props={"className": "float-left"},
-    interval_props={"interval": 2000},
+    interval_props={"interval": 2500},
 )
 
 # slider = dcc.Slider(1995, 2019, 1, value=1995, id="bruh")
@@ -424,7 +424,7 @@ def fig_sankey(year, region):
         value=data_sankey["value"],
         label=list(str(x) + " MtCO2eq" for x in data_sankey["value"].astype(float).round(1)),
         color=data_sankey["color"],
-        hovertemplate="",
+        # hovertemplate="",
     )
 
     node = {
@@ -441,12 +441,13 @@ def fig_sankey(year, region):
         node=node,  #
         valueformat=".0f",
         valuesuffix=" Mt CO2eq",
+        hoverinfo="none"
         # arrangement="snap",
     )
 
     fig = go.Figure(sankey)
     fig.update_layout(
-        hovermode="y",
+        # hovermode="y",
         title=f"<b>Greenhouse gas footprint of {REGIONS[region]} in {year} (Mt CO2eq)<b>",
         font=dict(size=10, color="black"),
         paper_bgcolor="white",
@@ -456,8 +457,8 @@ def fig_sankey(year, region):
 
     fig.update_traces(
         legendrank=10,
-        node_hoverinfo="all",
-        hoverlabel=dict(align="left", bgcolor="white", bordercolor="black"),
+        # node_hoverinfo="none", # ‘all’, ‘none’, ‘skip’
+        # hoverlabel=dict(align="left", bgcolor="white", bordercolor="black"),
     )
 
     fig.update_layout(
@@ -466,7 +467,6 @@ def fig_sankey(year, region):
         height=height,
         margin=dict(l=left_margin, r=right_margin, t=top_margin, b=bottom_margin),
     )
-
     return fig
 
 

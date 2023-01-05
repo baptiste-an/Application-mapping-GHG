@@ -56,7 +56,7 @@ slider = PlaybackSliderAIO(
         "marks": {str(year): str(year) for year in range(1995, 2020, 1)},
     },
     button_props={"className": "float-left"},
-    interval_props={"interval": 2000},
+    interval_props={"interval": 2500},
 )
 thanks = html.Div(
     html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com"), " in 🇫🇷"]),
@@ -363,16 +363,16 @@ def fig_sankey_cap(year, region):
                         ],
                         (
                             [
-                                0.001,
-                                0.08,  # 8
-                                0.18,  # 10
-                                0.27,  # 9
-                                0.41,  # 13
-                                0.50,  # 9
-                                0.58,  # 8
-                                0.67,  # 12
-                                0.84,  # 10
-                                0.999,
+                                0.00001,
+                                0.095,  # 9.5
+                                0.19,  # 9.5
+                                0.285,  # 9.5
+                                0.44,  # 15.5
+                                0.52,  # 8
+                                0.6,  # 8
+                                0.68,  # 8
+                                0.835,  # 15.5
+                                1,  # 16.5
                             ]
                         ),
                     )
@@ -381,24 +381,24 @@ def fig_sankey_cap(year, region):
             y=lambda d: [node_y(nodes, i, white, color, region) for i in d.index],
         )
 
-        nodes["x", "Exports"] = 0.67
+        nodes["x", "Exports"] = 0.68
         if "CFC imports re-exported" in nodes.index:
             try:
-                nodes["x", "CFC imports re-exported"] = 0.65
+                nodes["x", "CFC imports re-exported"] = 0.68
             except KeyError:
                 None
 
         try:
-            nodes["x", "RoW - Negative capital formation"] = 0.45
+            nodes["x", "RoW - Negative capital formation"] = 0.44
         except KeyError:
             None
 
         try:
-            nodes["x", "Negative capital formation"] = 0.45
+            nodes["x", "Negative capital formation"] = 0.44
         except KeyError:
             None
 
-        nodes["x", "Footprint"] = 0.999
+        nodes["x", "Footprint"] = 1
 
         return nodes, pad2
 
@@ -446,14 +446,15 @@ def fig_sankey_cap(year, region):
         node=node,  #
         valueformat=".0f",
         valuesuffix=" tCO2eq/capita",
+        hoverinfo="none"
         # arrangement="snap",
     )
 
     fig = go.Figure(sankey)
     fig.update_layout(
-        hovermode="y",
+        # hovermode="y",
         title=f"<b>Greenhouse gas footprint of {REGIONS[region]} in {year} (tCO2eq/capita)<b>",
-        font=dict(size=8, color="black"),
+        font=dict(size=10, color="black"),
         paper_bgcolor="white",
         title_x=0.5,
         font_family="Arial",
@@ -461,8 +462,8 @@ def fig_sankey_cap(year, region):
 
     fig.update_traces(
         legendrank=10,
-        node_hoverinfo="all",
-        hoverlabel=dict(align="left", bgcolor="white", bordercolor="black"),
+        # node_hoverinfo="all",
+        # hoverlabel=dict(align="left", bgcolor="white", bordercolor="black"),
     )
 
     fig.update_layout(

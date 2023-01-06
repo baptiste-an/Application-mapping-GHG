@@ -80,7 +80,6 @@ layout = dbc.Container(
         slider,
         citation,
         html.Div("\nYou may use your browser's zoom function for better readability."),
-        html.Div(thanks),
     ],
     fluid=True,  # no change in width otherwise
 )

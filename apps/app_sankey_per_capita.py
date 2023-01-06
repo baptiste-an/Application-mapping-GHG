@@ -84,7 +84,6 @@ layout = dbc.Container(
         dbc.Row([dbc.Col([slider])], justify="center"),
         citation,
         html.Div("\nYou may use your browser's zoom function for better readability."),
-        html.Div(thanks),
 
     ],
     fluid=True,

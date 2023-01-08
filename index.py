@@ -15,6 +15,13 @@ from apps import app_sankey, app_sankey_per_capita, doc
 # VALID_USERNAME_PASSWORD_PAIRS = [["hello", "world"]]
 # auth = BasicAuth(app, VALID_USERNAME_PASSWORD_PAIRS)
 
+thanks = html.Div(
+    html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com", target="_blank"), " in 🇫🇷"]),
+    id="thanks",
+    # justify="right",
+)
+
+
 
 # app.layout = html.Div(
 #     [
@@ -88,6 +95,7 @@ app.layout = html.Div(
             active_tab="tab-1",
         ),
         html.Div(id="content"),
+        html.Div(thanks),
     ]
 )
 

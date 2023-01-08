@@ -79,6 +79,7 @@ layout = dbc.Container(
         slider,
         html.Div("\nYou may use your browser's zoom function for better readability."),
         citation,
+        html.Div([dcc.Input(), dcc.Input(style={"margin-left": "15px"})]),
     ],
     fluid=True,  # no change in width otherwise
 )
@@ -429,8 +430,8 @@ def fig_sankey(year, region):
 
     height = 460
     width = 1100
-    top_margin = 10
-    bottom_margin = 10
+    top_margin = 20
+    bottom_margin = 0
     left_margin = 10
     right_margin = 10
     pad = 10
@@ -455,21 +456,12 @@ def fig_sankey(year, region):
         "y": nodes["y"].values,
     }
 
-    sankey = go.Sankey(
-        link=link,
-        node=node,  #
-        valueformat=".0f",
-        valuesuffix=" Mt CO2eq",
-        hoverinfo="none"
-        # arrangement="snap",
-    )
+    sankey = go.Sankey(link=link, node=node, valueformat=".0f", valuesuffix=" Mt CO2eq", hoverinfo="none")
 
     fig = go.Figure(sankey)
     fig.update_layout(
-        # hovermode="y",
         title=f"<b>Greenhouse gas footprint of {REGIONS[region]} in {year} (Mt CO2eq)<b>",
         font=dict(size=10, color="black"),
-        # paper_bgcolor="white",
         title_x=0.5,
         font_family="Arial",
     )

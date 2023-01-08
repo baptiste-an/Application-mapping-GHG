@@ -80,10 +80,10 @@ layout = dbc.Container(
                 )
             ]
         ),
-        html.Div(" "),
         dbc.Row([dbc.Col([slider])], justify="center"),
         html.Div("\nYou may use your browser's zoom function for better readability."),
         citation,
+        html.Div([dcc.Input(), dcc.Input(style={"margin-left": "15px"})]),
     ],
     fluid=True,
 )
@@ -435,8 +435,8 @@ def fig_sankey_cap(year, region):
 
     height = 460
     width = 1100
-    top_margin = 10
-    bottom_margin = 10
+    top_margin = 20
+    bottom_margin = 0
     left_margin = 10
     right_margin = 10
     pad = 10

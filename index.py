@@ -56,9 +56,9 @@ app.layout = html.Div(
 @app.callback(Output("content", "children"), [Input("tabs", "active_tab")])
 def switch_tab(at):
     if at == "tab-1":
-        return app_sankey.layout
-    elif at == "tab-2":
         return app_sankey_per_capita.layout
+    elif at == "tab-2":
+        return app_sankey.layout
     elif at == "tab-3":
         return doc.layout
 

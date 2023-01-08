@@ -69,7 +69,8 @@ class PlaybackSliderAIO(html.Div):
                             width=1,
                         ),
                         dbc.Col(html.Div("Select year or press play")),
-                    ]
+                    ],
+                    align="center",
                 ),
                 dcc.Slider(id=self.ids.slider(aio_id), **slider_props),
                 dcc.Interval(id=self.ids.interval(aio_id), **interval_props),

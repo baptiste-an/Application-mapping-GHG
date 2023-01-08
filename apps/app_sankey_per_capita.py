@@ -66,7 +66,11 @@ citation = html.Div(
 
 layout = dbc.Container(
     [
-        dbc.Row([dbc.Col([dropdown], width=3), dbc.Col(html.Div("Select region"), width=9)], justify="center"),
+        dbc.Row(
+            [dbc.Col([dropdown], width=3), dbc.Col(html.Div("Select region"), width=9)],
+            justify="center",
+            align="center",
+        ),
         dbc.Row(
             [
                 dbc.Col(
@@ -78,8 +82,8 @@ layout = dbc.Container(
         ),
         html.Div(" "),
         dbc.Row([dbc.Col([slider])], justify="center"),
-        citation,
         html.Div("\nYou may use your browser's zoom function for better readability."),
+        citation,
     ],
     fluid=True,
 )
@@ -429,9 +433,9 @@ def fig_sankey_cap(year, region):
         DATA_PATH.joinpath("Sankey_data/" + region + "/nodelist" + region + str(year) + ".feather")
     )[0].values
 
-    height = 480
+    height = 460
     width = 1100
-    top_margin = 30
+    top_margin = 10
     bottom_margin = 10
     left_margin = 10
     right_margin = 10

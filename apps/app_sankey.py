@@ -53,11 +53,6 @@ slider = PlaybackSliderAIO(
     interval_props={"interval": 2500},
 )
 
-thanks = html.Div(
-    html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com"), " in 🇫🇷"]),
-    id="thanks",
-)
-
 citation = html.Div(
     "Citation: Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at:",
     className="border",

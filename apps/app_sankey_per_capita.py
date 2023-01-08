@@ -58,10 +58,6 @@ slider = PlaybackSliderAIO(
     button_props={"className": "float-left"},
     interval_props={"interval": 2500},
 )
-thanks = html.Div(
-    html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com"), " in 🇫🇷"]),
-    id="thanks",
-)
 citation = html.Div(
     "Citation: Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at:",
     className="border",
@@ -84,7 +80,6 @@ layout = dbc.Container(
         dbc.Row([dbc.Col([slider])], justify="center"),
         citation,
         html.Div("\nYou may use your browser's zoom function for better readability."),
-
     ],
     fluid=True,
 )

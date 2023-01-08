@@ -21,53 +21,6 @@ thanks = html.Div(
     # justify="right",
 )
 
-
-
-# app.layout = html.Div(
-#     [
-#         html.Div(
-#             [
-#                 dbc.Row(
-#                     [
-#                         dbc.Col(
-#                             [
-#                                 dcc.Link(
-#                                     "   Emissions per capita",
-#                                     href="/apps/app_sankey_per_capita",
-#                                     # className="bg-primary text-light fw-bold rounded",
-#                                 )
-#                             ],
-#                             width="auto",
-#                         ),
-#                         dbc.Col(
-#                             [
-#                                 dcc.Link(
-#                                     "Total emissions (Mt)",
-#                                     href="/apps/app_sankey",
-#                                     # className="bg-primary text-light fw-bold rounded",
-#                                 )
-#                             ],
-#                             width="auto",
-#                         ),
-#                         dbc.Col(
-#                             [
-#                                 dcc.Link(
-#                                     "Documentation and downloads",
-#                                     href="/apps/doc",
-#                                     # className="bg-primary text-light fw-bold rounded",
-#                                 )
-#                             ],
-#                             width="auto",
-#                         ),
-#                     ]
-#                 ),
-#             ]
-#         ),
-#         dcc.Location(id="url", refresh=False),
-#         html.Div(id="page-content", children=[]),
-#     ]
-# )
-
 app.layout = html.Div(
     [
         dbc.Tabs(
@@ -108,18 +61,6 @@ def switch_tab(at):
         return app_sankey_per_capita.layout
     elif at == "tab-3":
         return doc.layout
-
-
-# @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
-# def display_page(pathname):
-#     if pathname == "/apps/app_sankey":
-#         return app_sankey.layout
-#     if pathname == "/apps/app_sankey_per_capita":
-#         return app_sankey_per_capita.layout
-#     if pathname == "/apps/doc":
-#         return doc.layout
-#     else:
-#         return app_sankey_per_capita.layout
 
 
 # for deployment:

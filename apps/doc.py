@@ -19,7 +19,9 @@ text = dcc.Markdown(
     
     A full explanation of the diagrams is available in the **paper**: not yet posted on preprint server
 
-    The **code** used to calculate the footprints and build the application is available on github: https://github.com/baptiste-an/Mapping-global-ghg-emissions
+    The **code** used to calculate the **footprints** is available on github: https://github.com/baptiste-an/Mapping-global-ghg-emissions
+
+    The **code** to build the **application** is available on github: https://github.com/baptiste-an/Application-mapping-GHG
 
     The **sankey diagrams in svg format** can be downloaded on github: https://github.com/baptiste-an/Mapping-global-ghg-emissions/tree/main/Results/Sankey_figs
 

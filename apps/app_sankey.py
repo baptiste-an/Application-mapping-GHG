@@ -79,7 +79,6 @@ layout = dbc.Container(
         slider,
         html.Div("\nYou may use your browser's zoom function for better readability."),
         citation,
-        html.Div([dcc.Input(), dcc.Input(style={"margin-left": "15px"})]),
     ],
     fluid=True,  # no change in width otherwise
 )

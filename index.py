@@ -26,19 +26,19 @@ app.layout = html.Div(
         dbc.Tabs(
             [
                 dbc.Tab(
-                    label="Emissions per capita (t/cap)",
+                    label="EMISSIONS PER CAPITA",
                     tab_id="tab-1",
                     active_label_style={"color": "#FF8200"},
                     # label_style={"color": "#00005A"},
                 ),
                 dbc.Tab(
-                    label="Total emissions (Mt)",
+                    label="TOTAL EMISSIONS",
                     tab_id="tab-2",
                     active_label_style={"color": "#FF8200"},
                     # label_style={"color": "#00005A"},
                 ),
                 dbc.Tab(
-                    label="Documentation and downloads",
+                    label="DOCUMENTATION AND DOWNLOADS",
                     tab_id="tab-3",
                     active_label_style={"color": "#FF8200"},
                     # label_style={"color": "#00005A"},

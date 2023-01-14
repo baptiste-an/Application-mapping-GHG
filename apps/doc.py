@@ -53,7 +53,7 @@ layout = dbc.Container(
                             target="_blank",
                         )
                     ],
-                    width=3,
+                    width=2,
                 ),
                 dbc.Col(
                     [
@@ -63,7 +63,7 @@ layout = dbc.Container(
                             target="_blank",
                         )
                     ],
-                    width=3,
+                    width=2,
                 ),
                 dbc.Col(
                     [
@@ -73,7 +73,17 @@ layout = dbc.Container(
                             target="_blank",
                         )
                     ],
-                    width=3,
+                    width=2,
+                ),
+                dbc.Col(
+                    [
+                        html.A(
+                            html.Img(src=app.get_asset_url("gael2.jpg"), style={"height": 100, "justify": "center"}),
+                            href="https://gael.univ-grenoble-alpes.fr/?language=en",
+                            target="_blank",
+                        )
+                    ],
+                    width=2,
                 ),
                 dbc.Col(
                     [
@@ -83,9 +93,10 @@ layout = dbc.Container(
                             target="_blank",
                         )
                     ],
-                    width=3,
+                    width=2,
                 ),
             ],
+            justify="center",
         ),
         html.Div(text, className="border")
         # dbc.Row([dbc.Col([thanks], width=12)])

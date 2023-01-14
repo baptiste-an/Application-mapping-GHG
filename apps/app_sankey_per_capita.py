@@ -81,7 +81,12 @@ layout = dbc.Container(
             ]
         ),
         dbc.Row([dbc.Col([slider])], justify="center"),
-        html.Div("\nYou may use your browser's zoom function for better readability."),
+        html.Div(
+            dcc.Markdown(
+                "You may **use your browser's zoom function for better readability**. RoW: Rest of the world, NPISHS: Non Profit Institutions Serving Households, GCF: Gross Capital Formation, CFC: Consumption of Fixed Capital, CFCk: Consumption of Fixed Capital with capital endogenized. A full documentation is available in the associated paper."
+            ),
+            style={"fontSize": 13},
+        ),
         citation,
     ],
     fluid=True,

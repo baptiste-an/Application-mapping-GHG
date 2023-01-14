@@ -13,7 +13,7 @@ text = dcc.Markdown(
 
     The goal of this project is to build a visual representation of all possible scopes for calculating greenhouse gas footprint. We use EXIOBASE3 - a global multi-regional input-output database - to calculate emissions for 49 regions of the world between 1995 and 2019. 
     
-    A full explanation of the diagrams is available in the **paper**: not yet posted on preprint server
+    A full explanation of the diagrams is available in the paper: not yet posted on preprint server
 
     ##### Code and figures downloads
     
@@ -25,7 +25,7 @@ text = dcc.Markdown(
 
     ##### Funding
 
-    Most of this work has been funded by [*The Shift Project*](https://theshiftproject.org/en), a French think tank advocating the shift to a post carbon economy. As a non-profit organisation committed to serving the general interest through scientific objectivity, *The Shift Project* is dedicated to informing and influencing the debate on energy transition in Europe.
+    Most of this work has been funded by [*The Shift Project*](https://theshiftproject.org/en), a French think tank advocating the shift to a post carbon economy. As a non-profit organisation committed to serving the general interest, *The Shift Project* is dedicated to informing and influencing the debate on energy transition in Europe.
 
     Other funders include [ISTerre]("https://www.isterre.fr/?lang=en"), [STEEP]("https://steep.inria.fr/en/"), [GAEL]("https://gael.univ-grenoble-alpes.fr/?language=en"), [University Grenoble Alpes]("https://www.univ-grenoble-alpes.fr/english/"), [CNRS](https://www.cnrs.fr/en), and the [French National Research Agency](https://anr.fr/en/).
 

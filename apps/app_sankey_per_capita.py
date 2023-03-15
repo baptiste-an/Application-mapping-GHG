@@ -58,10 +58,25 @@ slider = PlaybackSliderAIO(
     button_props={"className": "float-left"},
     interval_props={"interval": 2500},
 )
+link = html.A(
+    "https://doi.org/10.21203/rs.3.rs-2617637/v1",
+    href="https://doi.org/10.21203/rs.3.rs-2617637/v1",
+    target="_blank",
+)
+
 citation = html.Div(
-    "Citation: Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at:",
+    html.P(
+        [
+            "Citation: Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at: ",
+            link,
+        ]
+    ),
     className="border",
 )
+# citation = html.Div(
+#     "Citation: Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at: https://www.researchsquare.com/article/rs-2617637/v1",
+#     className="border",
+# )
 
 
 layout = dbc.Container(

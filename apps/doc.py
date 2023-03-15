@@ -13,7 +13,7 @@ text = dcc.Markdown(
 
     The goal of this project is to build a visual representation of all possible scopes for calculating greenhouse gas footprint. We use EXIOBASE3 - a global multi-regional input-output database - to calculate emissions for 49 regions of the world between 1995 and 2019. 
     
-    A full explanation of the diagrams is available in the paper: not yet posted on preprint server
+    A full explanation of the diagrams is available in the paper: https://doi.org/10.21203/rs.3.rs-2617637/v1
 
     ##### Code and figures downloads
     
@@ -31,7 +31,7 @@ text = dcc.Markdown(
 
     ##### Citation
 
-    Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at:
+    Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at: https://doi.org/10.21203/rs.3.rs-2617637/v1
 """
 )
 

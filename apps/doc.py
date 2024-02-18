@@ -31,7 +31,7 @@ text = dcc.Markdown(
 
     ##### Citation
 
-    Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at: https://doi.org/10.21203/rs.3.rs-2617637/v1
+    Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Stadler, K., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at: https://doi.org/10.21203/rs.3.rs-2617637/v1
 
     Based on Stadler, K.; Wood, R.; Bulavskaya, T.; Södersten, C.-J.; Simas, M.; Schmidt, S.; Usubiaga, A.; Acosta-Fernández, J.; Kuenen, J.; Bruckner, M.; Giljum, S.; Lutter, S.; Merciai, S.; Schmidt, J. H.; Theurl, M. C.; Plutzar, C.; Kastner, T.; Eisenmenger, N.; Erb, K.-H.; de Koning, A.; Tukker, A. EXIOBASE 3: Developing a Time Series of Detailed Environmentally Extended Multi-Regional Input-Output Tables: EXIOBASE 3. Journal of Industrial Ecology 2018, 22 (3), 502–515. https://doi.org/10.1111/jiec.12715.
 

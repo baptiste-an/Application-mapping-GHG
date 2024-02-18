@@ -78,7 +78,7 @@ citation = html.Div(
         html.P(html.Strong("Citation:"), className="mb-0"),
         html.P(
             [
-                "Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at: ",
+                "Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Stadler, K., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at: ",
                 link,
             ]
         ),

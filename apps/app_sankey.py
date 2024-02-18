@@ -118,6 +118,24 @@ layout = dbc.Container(
             style={"fontSize": 13},
         ),
         citation,
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.A(
+                            html.Img(
+                                src=app.get_asset_url("exiobase.png"),
+                                style={"height": 100, "justify": "center"},
+                            ),
+                            href="https://www.exiobase.eu/",
+                            target="_blank",
+                        )
+                    ],
+                    width=6,
+                )
+            ],
+            justify="center",
+        ),
     ],
     fluid=True,  # no change in width otherwise
 )

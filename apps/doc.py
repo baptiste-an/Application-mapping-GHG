@@ -53,7 +53,23 @@ layout = dbc.Container(
                 dbc.Col(
                     [
                         html.A(
-                            html.Img(src=app.get_asset_url("tsp2.jpg"), style={"height": 100, "justify": "center"}),
+                            html.Img(
+                                src=app.get_asset_url("NTNU.png"),
+                                style={"height": 100, "justify": "center"},
+                            ),
+                            href="https://www.ntnu.edu/",
+                            target="_blank",
+                        )
+                    ],
+                    width=2,
+                ),
+                dbc.Col(
+                    [
+                        html.A(
+                            html.Img(
+                                src=app.get_asset_url("tsp2.jpg"),
+                                style={"height": 100, "justify": "center"},
+                            ),
                             href="https://theshiftproject.org/en/home/",
                             target="_blank",
                         )
@@ -63,7 +79,10 @@ layout = dbc.Container(
                 dbc.Col(
                     [
                         html.A(
-                            html.Img(src=app.get_asset_url("isterre2.jpg"), style={"height": 100, "justify": "center"}),
+                            html.Img(
+                                src=app.get_asset_url("isterre2.jpg"),
+                                style={"height": 100, "justify": "center"},
+                            ),
                             href="https://www.isterre.fr/?lang=en",
                             target="_blank",
                         )
@@ -73,7 +92,10 @@ layout = dbc.Container(
                 dbc.Col(
                     [
                         html.A(
-                            html.Img(src=app.get_asset_url("steep2.jpg"), style={"height": 100, "justify": "center"}),
+                            html.Img(
+                                src=app.get_asset_url("steep2.jpg"),
+                                style={"height": 100, "justify": "center"},
+                            ),
                             href="https://steep.inria.fr/en/",
                             target="_blank",
                         )
@@ -83,27 +105,48 @@ layout = dbc.Container(
                 dbc.Col(
                     [
                         html.A(
-                            html.Img(src=app.get_asset_url("gael2.jpg"), style={"height": 100, "justify": "center"}),
+                            html.Img(
+                                src=app.get_asset_url("gael2.jpg"),
+                                style={"height": 100, "justify": "center"},
+                            ),
                             href="https://gael.univ-grenoble-alpes.fr/?language=en",
                             target="_blank",
                         )
                     ],
                     width=2,
                 ),
-                dbc.Col(
-                    [
-                        html.A(
-                            html.Img(src=app.get_asset_url("uga2.jpg"), style={"height": 100, "justify": "center"}),
-                            href="https://www.univ-grenoble-alpes.fr/english/",
-                            target="_blank",
-                        )
-                    ],
-                    width=2,
-                ),
+                # dbc.Col(
+                #     [
+                #         html.A(
+                #             html.Img(src=app.get_asset_url("uga2.jpg"), style={"height": 100, "justify": "center"}),
+                #             href="https://www.univ-grenoble-alpes.fr/english/",
+                #             target="_blank",
+                #         )
+                #     ],
+                #     width=2,
+                # ),
             ],
             justify="center",
         ),
-        html.Div(text, className="border", style={"fontSize": 13})
+        html.Div(text, className="border", style={"fontSize": 13}),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.A(
+                            html.Img(
+                                src=app.get_asset_url("exiobase.png"),
+                                style={"height": 100, "justify": "center"},
+                            ),
+                            href="https://www.exiobase.eu/",
+                            target="_blank",
+                        )
+                    ],
+                    width=6,
+                )
+            ],
+            justify="center",
+        ),
         # dbc.Row([dbc.Col([thanks], width=12)])
         # html.Div(thanks, id="page-content"),
     ],

@@ -94,6 +94,15 @@ citation = html.Div(
                 link3,
             ]
         ),
+        # html.Img(
+        #     src=app.get_asset_url("NTNU.png"),
+        #     style={
+        #         "height": "100px",
+        #         "display": "block",
+        #         "margin-left": "auto",
+        #         "margin-right": "auto",
+        #     },
+        # ),
     ],
     className="border",
 )
@@ -123,6 +132,24 @@ layout = dbc.Container(
             style={"fontSize": 13},
         ),
         citation,
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.A(
+                            html.Img(
+                                src=app.get_asset_url("exiobase.png"),
+                                style={"height": 100, "justify": "center"},
+                            ),
+                            href="https://www.exiobase.eu/",
+                            target="_blank",
+                        )
+                    ],
+                    width=6,
+                )
+            ],
+            justify="center",
+        ),
     ],
     fluid=True,
 )

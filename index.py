@@ -16,7 +16,7 @@ from apps import app_sankey, app_sankey_per_capita, doc
 # auth = BasicAuth(app, VALID_USERNAME_PASSWORD_PAIRS)
 
 thanks = html.Div(
-    html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com", target="_blank"), " in 🇫🇷"]),
+    html.P(["Graciously hosted by ", html.A("scalingo", href="https://scalingo.com?utm_source=referral&utm_medium=website-footer&utm_campaign=shiftproject", target="_blank"), " in 🇫🇷"]),
     id="thanks",
     # justify="right",
 )

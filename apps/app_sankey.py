@@ -51,8 +51,8 @@ slider = PlaybackSliderAIO(
 )
 
 link = html.A(
-    "https://www.nature.com/articles/s43247-024-01378-8",
-    href="https://www.nature.com/articles/s43247-024-01378-8",
+    "https://doi.org/10.1038/s43247-024-01378-8",
+    href="https://doi.org/10.1038/s43247-024-01378-8",
     target="_blank",
 )
 link2 = html.A(
@@ -72,7 +72,7 @@ citation = html.Div(
         html.P(html.Strong("Citation:"), className="mb-0"),
         html.P(
             [
-                "Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Stadler, K., An open-access web application to visualise countries’ and regions’ carbon footprints using Sankey diagrams. Available at: ",
+                "Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Stadler, K., An open-access web application to visualise countries’ and regions’ carbon footprints using Sankey diagrams. Commun Earth Environ 5, 236 (2024). ",
                 link,
             ]
         ),

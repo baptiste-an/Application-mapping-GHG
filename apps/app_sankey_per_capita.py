@@ -78,7 +78,7 @@ citation = html.Div(
         html.P(html.Strong("Citation:"), className="mb-0"),
         html.P(
             [
-                "Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Stadler, K., AAn open-access web application to visualise countries’ and regions’ carbon footprints using Sankey diagrams. Commun Earth Environ 5, 236 (2024). ",
+                "Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Stadler, K., An open-access web application to visualise countries’ and regions’ carbon footprints using Sankey diagrams. Commun Earth Environ 5, 236 (2024). ",
                 link,
             ]
         ),

@@ -51,8 +51,8 @@ slider = PlaybackSliderAIO(
 )
 
 link = html.A(
-    "https://doi.org/10.21203/rs.3.rs-2617637/v1",
-    href="https://doi.org/10.21203/rs.3.rs-2617637/v1",
+    "https://www.nature.com/articles/s43247-024-01378-8",
+    href="https://www.nature.com/articles/s43247-024-01378-8",
     target="_blank",
 )
 link2 = html.A(
@@ -72,7 +72,7 @@ citation = html.Div(
         html.P(html.Strong("Citation:"), className="mb-0"),
         html.P(
             [
-                "Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Stadler, K., Mapping global greenhouse gases emissions: an interactive, open-access, web application. Available at: ",
+                "Andrieu, B., Le Boulzec, H., Delannoy, L., Verzier, F., Winter, G., Vidal, O., Stadler, K., An open-access web application to visualise countries’ and regions’ carbon footprints using Sankey diagrams. Available at: ",
                 link,
             ]
         ),

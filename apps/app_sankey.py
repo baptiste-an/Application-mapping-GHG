@@ -1,5 +1,5 @@
 """
- # @ Create Time: 2022-08-23 15:40:55.513725
+# @ Create Time: 2022-08-23 15:40:55.513725
 """
 
 import pandas as pd
@@ -40,11 +40,11 @@ graph = html.Div(dcc.Graph(id="graph", responsive=True, style={"height": "550px"
 slider = PlaybackSliderAIO(
     aio_id="bruh",
     slider_props={
-        "min": 1995,
-        "max": 2019,  # 2019
+        "min": 1996,
+        "max": 2021,  # 2019
         "step": 1,
-        "value": 1995,
-        "marks": {str(year): str(year) for year in range(1995, 2020, 1)},
+        "value": 2021,
+        "marks": {str(year): str(year) for year in range(1996, 2022, 1)},
     },
     button_props={"className": "float-left"},
     interval_props={"interval": 2500},
